@@ -1,0 +1,42 @@
+```python
+# WorkTime app
+
+class Employee:
+    def __init__(self, name, id):
+        self.name = name
+        self.id = id
+        self.work_hours = []
+        self.leave_requests = []
+        self.sick_days = []
+
+    def clock_in(self, start_time):
+        self.work_hours.append({'start_time': start_time})
+
+    def clock_out(self, end_time):
+        self.work_hours[-1]['end_time'] = end_time
+
+    def request_leave(self, leave_type, date):
+        self.leave_requests.append({'leave_type': leave_type, 'date': date, 'status': 'pending'})
+
+    def request_sick_day(self, date, reason):
+        self.sick_days.append({'date': date, 'reason': reason})
+
+class Manager(Employee):
+    def generate_reports(self):
+        work_hours_report = [emp.work_hours for emp in employees]
+        leave_requests_report = [emp.leave_requests for emp in employees]
+        sick_days_report = [emp.sick_days for emp in employees]
+        return {'work_hours_report': work_hours_report, 'leave_requests_report': leave_requests_report, 'sick_days_report': sick_days_report}
+
+# Sample usage
+employee1 = Employee('John Doe', 1)
+employee2 = Employee('Jane Smith', 2)
+manager1 = Manager('Alice Johnson', 3)
+employees = [employee1, employee2]
+
+employee1.clock_in('8:00 AM')
+employee1.clock_out('5:00 PM')
+
+employee2.request_leave('vacation', '2023-01-01')
+manager1.generate_reports()
+```
